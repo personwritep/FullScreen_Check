@@ -44,6 +44,7 @@ function check(key){
 
 document.addEventListener('keydown', function(event){
     if(event.keyCode=='120'){ //「F9」
+        event.preventDefault();
         ck_width(); }});
 
 
