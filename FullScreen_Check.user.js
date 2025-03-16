@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        FullScreen Check
 // @namespace        http://tampermonkey.net/
-// @version        0.1
+// @version        0.2
 // @description        ブラウザのフルスクリーン表示を判定する　ショートカット「F9」
 // @author        Personwritep
 // @match        https://*/*
@@ -45,12 +45,20 @@ function check(key){
 document.addEventListener('keydown', function(event){
     if(event.keyCode=='120'){ //「F9」
         event.preventDefault();
-        ck_width(); }});
+        ck_width();
+        ck_height();
+    }});
 
 
 function ck_width(){
-    if(window.screen.width==window.outerWidth){
+    if(window.screen.width==window.innerWidth){
         check('Y'); }
     else{
         check('G'); }}
 
+
+function ck_height(){
+    if(window.screen.height==window.innerHeight){
+        check('R'); }
+    else{
+        check('B'); }}
