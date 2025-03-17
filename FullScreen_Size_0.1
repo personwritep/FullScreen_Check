@@ -21,16 +21,17 @@ let disp=
     '<button class="scb scb_not">Not Scrool</button></div>'+
     '</div>'+
     '<style>'+
-    '#proper_panel { position: fixed; top: 100px; left: 400px; z-index: calc(infinity); '+
+    '#proper_panel { position: fixed; top: 100px; left: 300px; z-index: calc(infinity); '+
     'font: 16px Meiryo; color: #000; background: #fff; padding: 0 20px; '+
     'border: 1px solid #aaa; box-shadow: 0 0 20px 0 #00000040; } '+
+    '#proper_panel *{ box-sizing: content-box; } '+
     '.pul { margin: 16px 0; list-style: none; white-space: nowrap; } '+
     '.pul li + li>* { border-top: none; } '+
     '.per { font-size: 12px; } '+
     '.name , .value { display: inline-block; padding: 4px 8px 2px; border: 1px solid #ccc; } '+
-    '.name { width: 340px; } '+
-    '.value { width: 40px; text-align: right; border-left: none; } '+
-    '.scb { font-size: 15px; padding: 1px 6px 0px; margin-bottom: 16px; } '+
+    '.name { width: 340px; margin: 0; } '+
+    '.value { width: 40px; margin: 0; text-align: right; border-left: none; } '+
+    '.scb { font-size: 15px; padding: 1px 6px 0px; margin-bottom: 16px; border-radius: revert; } '+
     '</style>';
 document.body.insertAdjacentHTML('beforeend', disp);
 
@@ -84,7 +85,7 @@ function disp_pul_z(dpr){
     disp_pul();
 
     let mag=1/dpr;
-    let pos_x=400/dpr;
+    let pos_x=300/dpr;
     let pos_y=100/dpr;
     let z_style=
         '<style id="fsc_z">'+
@@ -112,7 +113,7 @@ if(scb_all){
     scb_all.onclick=function(){
         let scb_all_style=
             '<style id="scb_all">body { width: 120%; height:120px; } '+
-            '.scb_all { box-shadow: inset 0 0 0 10px #91c2e8; }</style>';
+            '.scb_all { box-shadow: inset 0 0 0 20px #91c2e8 !important; }</style>';
 
         if(document.querySelector('#scb_not')){
             document.querySelector('#scb_not').remove(); }
@@ -130,7 +131,7 @@ if(scb_not){
     scb_not.onclick=function(){
         let scb_not_style=
             '<style id="scb_not">html, body { overflow: hidden; } '+
-            '.scb_not{ box-shadow: inset 0 0 0 10px #91c2e8; }</style>';
+            '.scb_not{ box-shadow: inset 0 0 0 20px #91c2e8 !important; }</style>';
 
         if(document.querySelector('#scb_all')){
             document.querySelector('#scb_all').remove(); }
