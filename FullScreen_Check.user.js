@@ -51,14 +51,14 @@ document.addEventListener('keydown', function(event){
 
 
 function ck_width(){
-    if(window.screen.width==window.innerWidth){
+    if(window.screen.width==window.outerWidth){
         check('Y'); }
     else{
         check('G'); }}
 
 
 function ck_height(){
-    if(window.screen.height==window.innerHeight){
+    if(window.screen.height==window.outerHeight){
         check('R'); }
     else{
         check('B'); }}
