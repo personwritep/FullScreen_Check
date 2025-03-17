@@ -1,0 +1,142 @@
+// ==UserScript==
+// @name        FullScreen Size
+// @namespace        http://tampermonkey.net/
+// @version        0.1
+// @description        スクリーンとウインドウの各種サイズ一覧
+// @author        Personwritep
+// @match        https://*/*
+// @noframes
+// @grant        none
+// @updateURL        https://github.com/personwritep/FullScreen_Check/raw/main/FullScreen_Size.user.js
+// @downloadURL        https://github.com/personwritep/FullScreen_Check/raw/main/FullScreen_Size.user.js
+// ==/UserScript==
+
+
+let disp=
+    '<div id="proper_panel">'+
+    '<ul class="pul pul_z"></ul>'+
+    '<ul class="pul pul_w"></ul>'+
+    '<ul class="pul pul_h"></ul>'+
+    '<div><button class="scb scb_all">Scrool Bar All</button>　'+
+    '<button class="scb scb_not">Not Scrool</button></div>'+
+    '</div>'+
+    '<style>'+
+    '#proper_panel { position: fixed; top: 100px; left: 400px; z-index: calc(infinity); '+
+    'font: 16px Meiryo; color: #000; background: #fff; padding: 0 20px; '+
+    'border: 1px solid #aaa; box-shadow: 0 0 20px 0 #00000040; } '+
+    '.pul { margin: 16px 0; list-style: none; white-space: nowrap; } '+
+    '.pul li + li>* { border-top: none; } '+
+    '.per { font-size: 12px; } '+
+    '.name , .value { display: inline-block; padding: 4px 8px 2px; border: 1px solid #ccc; } '+
+    '.name { width: 340px; } '+
+    '.value { width: 40px; text-align: right; border-left: none; } '+
+    '.scb { font-size: 15px; padding: 1px 6px 0px; margin-bottom: 16px; } '+
+    '</style>';
+document.body.insertAdjacentHTML('beforeend', disp);
+
+
+
+function disp_pul(){
+
+    let proper_z=
+        '<li style="background: #f2f9fb;"><p class="name">browser zoom ratio</p>'+
+        '<p class="value">'+ Math.round(window.devicePixelRatio*100) +
+        '<span class="per">%</span></p></li>';
+
+    let proper_w=
+        '<li style="background: #f2f9fb;"><p class="name">screen.width</p>'+
+        '<p class="value">'+ screen.width +'</p></li>'+
+        '<li><p class="name">document.documentElement.clientWidth</p>'+
+        '<p class="value">'+ document.documentElement.clientWidth +'</p></li>'+
+        '<li><p class="name">window.innerWidth</p>'+
+        '<p class="value">'+ window.innerWidth +'</p></li>'+
+        '<li><p class="name">window.outerWidth</p>'+
+        '<p class="value">'+ window.outerWidth +'</p></li>';
+
+    let proper_h=
+        '<li style="background: #f2f9fb;"><p class="name">screen.height</p>'+
+        '<p class="value">'+ screen.height +'</p></li>'+
+        '<li><p class="name">document.documentElement.clientHeight</p>'+
+        '<p class="value">'+ document.documentElement.clientHeight +'</p></li>'+
+        '<li><p class="name">window.innerHeight</p>'+
+        '<p class="value">'+ window.innerHeight +'</p></li>'+
+        '<li><p class="name">window.outerHeight</p>'+
+        '<p class="value">'+ window.outerHeight +'</p></li>';
+
+
+    let pul_z=document.querySelector('.pul_z');
+    if(pul_z){
+        pul_z.innerHTML=proper_z; }
+
+    let pul_w=document.querySelector('.pul_w');
+    if(pul_w){
+        pul_w.innerHTML=proper_w; }
+
+    let pul_h=document.querySelector('.pul_h');
+    if(pul_h){
+        pul_h.innerHTML=proper_h; }
+
+} // disp_pul()
+
+
+
+function disp_pul_z(dpr){
+    disp_pul();
+
+    let mag=1/dpr;
+    let pos_x=400/dpr;
+    let pos_y=100/dpr;
+    let z_style=
+        '<style id="fsc_z">'+
+        '#proper_panel { top: '+ pos_y +'px; left: '+ pos_x +'px; '+
+        'transform: scale('+ mag +'); transform-origin: top left; } '+
+        '</style>';
+
+    if(document.querySelector('#fsc_z')){
+        document.querySelector('#fsc_z').remove(); }
+    document.body.insertAdjacentHTML('beforeend', z_style);
+
+} // disp_pul_z()
+
+
+
+disp_pul_z(window.devicePixelRatio);
+
+
+window.addEventListener('resize', ()=>{ disp_pul_z(window.devicePixelRatio); });
+
+
+
+let scb_all=document.querySelector('.scb_all');
+if(scb_all){
+    scb_all.onclick=function(){
+        let scb_all_style=
+            '<style id="scb_all">body { width: 120%; height:120px; } '+
+            '.scb_all { box-shadow: inset 0 0 0 10px #91c2e8; }</style>';
+
+        if(document.querySelector('#scb_not')){
+            document.querySelector('#scb_not').remove(); }
+        if(document.querySelector('#scb_all')){
+            document.querySelector('#scb_all').remove(); }
+        else{
+            document.body.insertAdjacentHTML('beforeend', scb_all_style); }
+
+        disp_pul_z(window.devicePixelRatio); }}
+
+
+
+let scb_not=document.querySelector('.scb_not');
+if(scb_not){
+    scb_not.onclick=function(){
+        let scb_not_style=
+            '<style id="scb_not">html, body { overflow: hidden; } '+
+            '.scb_not{ box-shadow: inset 0 0 0 10px #91c2e8; }</style>';
+
+        if(document.querySelector('#scb_all')){
+            document.querySelector('#scb_all').remove(); }
+        if(document.querySelector('#scb_not')){
+            document.querySelector('#scb_not').remove(); }
+        else{
+            document.body.insertAdjacentHTML('beforeend', scb_not_style); }
+
+        disp_pul_z(window.devicePixelRatio); }}
