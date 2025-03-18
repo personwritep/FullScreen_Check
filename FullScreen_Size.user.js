@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        FullScreen Size
 // @namespace        http://tampermonkey.net/
-// @version        0.1
+// @version        0.2
 // @description        スクリーンとウインドウの各種サイズ一覧
 // @author        Personwritep
 // @match        https://*/*
@@ -17,6 +17,7 @@ let disp=
     '<ul class="pul pul_z"></ul>'+
     '<ul class="pul pul_w"></ul>'+
     '<ul class="pul pul_h"></ul>'+
+    '<ul class="pul pul_t"></ul>'+
     '<div><button class="scb scb_all">Scrool Bar All</button>　'+
     '<button class="scb scb_not">Not Scrool</button></div>'+
     '</div>'+
@@ -64,6 +65,13 @@ function disp_pul(){
         '<li><p class="name">window.outerHeight</p>'+
         '<p class="value">'+ window.outerHeight +'</p></li>';
 
+    let proper_t=
+        '<li style="background: #f2f9fb;"><p class="name">revised innerWidth / round</p>'+
+        '<p class="value">'+ Math.round((window.innerWidth)*(window.devicePixelRatio))+
+        '</p></li>'+
+        '<li style="background: #f2f9fb;"><p class="name">revised innerHeight / round</p>'+
+        '<p class="value">'+ Math.round((window.innerHeight)*(window.devicePixelRatio))+
+        '</p></li>';
 
     let pul_z=document.querySelector('.pul_z');
     if(pul_z){
@@ -76,6 +84,10 @@ function disp_pul(){
     let pul_h=document.querySelector('.pul_h');
     if(pul_h){
         pul_h.innerHTML=proper_h; }
+
+    let pul_t=document.querySelector('.pul_t');
+    if(pul_t){
+        pul_t.innerHTML=proper_t; }
 
 } // disp_pul()
 
