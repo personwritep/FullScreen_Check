@@ -58,7 +58,26 @@ function ck_width(){
 
 
 function ck_height(){
+    if(window.screen.height - (window.innerHeight)*(window.devicePixelRatio) < 50 ){
+        check('R'); }
+    else{
+        check('B'); }}
+
+
+
+/*
+function ck_height(){
     if(window.screen.height==window.outerHeight){
         check('R'); }
     else{
         check('B'); }}
+*/
+
+/*
+    let real_H=(window.innerHeight)*(window.devicePixelRatio);
+    real_H=Math.round(real_H);
+    if(window.screen.height==real_H){
+        check('R'); }
+    else{
+        check('B'); }}
+*/
